@@ -1,0 +1,89 @@
+<form [formGroup]="employeeForm" method="POST" class="form-horizontal" role="form" (ngSubmit)="onSubmit()" #form="ngForm">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Create Employee</h3>
+        </div>
+        <div class="panel-body" >
+          <div class="form-group"
+          [ngClass]="{'has-error':employeeForm.get('fullname').errors &&
+          (employeeForm.get('fullname').touched ||
+          employeeForm.get('fullname').dirty)}">
+            <label class="col-sm-2 control-lable" for="fullname">Full Name</label>
+            <input id="fullname" type="text" name="fullname" formControlName="fullname" class="col-sm-2"><br>
+            {{fullNameCount}}
+           <span class="help-block" *ngIf="(employeeForm.get('fullname').touched ||
+           employeeForm.get('fullname').dirty)">
+            <span *ngIf="employeeForm.get('fullname').hasError('required')">
+              Full Name is required
+            </span>
+            <span *ngIf="employeeForm.get('fullname').hasError('minlength') || employeeForm.get('fullname').hasError('maxlength')">
+              Full Name must be greater than 2 and less than 10
+            </span>
+          </span>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="col-sm-2 control-lable" for="email">Email</label>
+            <input type="email" name="email" formControlName="email" class="col-sm-2">
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="col-sm-2 control-lable" for="email">Phone</label>
+            <input type="number" name="phone" formControlName="phone" class="col-sm-2">
+          </div>
+        </div>
+
+
+    </div>
+
+    <div formGroupName="skills">
+      Skill: <input type="text" id="skillName" formControlName="skillName">
+
+      Experience: <input type="number" id="experience" formControlName="experience">
+
+      <div class="form-group">
+        Proficiency:
+        Beginner <input type="radio" value="Beginner" formControlName="experienceLevel">
+        Intermediate <input type="radio" value="Intermediate" formControlName="experienceLevel">
+        Experienced <input type="radio" value="Experienced" formControlName="experienceLevel">
+      </div>
+    </div>
+
+
+    <div class="panel panel-default">
+      <div class="panel-footer">
+        <div class="btn-toolbar">
+          <button type="submit" class="btn btn-primary"> Add Skill</button>
+          <button type="button" class="btn btn-primary" (click)="onLoadData()"> Load Data</button>
+        </div>
+      </div>
+    </div>
+
+</form>
+
+<table border="1px">
+ <tr>
+   <th style="padding:10px">FormGroup</th>
+   <th style="padding:10px"> FormControl(fullname)</th>
+ </tr>
+  <td style="padding: 10px;">
+   touched : {{employeeForm.touched}}
+   <br> pristine : {{employeeForm.pristine}}
+   <br> dirty : {{employeeForm.dirty}}
+   <br> valid : {{employeeForm.valid}}
+   <br> Form Values : {{employeeForm.value | json}}
+  </td>
+
+  <td style="padding: 10px;">
+    touched : {{employeeForm.get('fullname').touched}}
+    <br> pristine : {{employeeForm.get('fullname').pristine}}
+    <br> dirty : {{employeeForm.get('fullname').dirty}}
+    <br> valid : {{employeeForm.get('fullname').valid}}
+    <br> Form Values : {{employeeForm.get('fullname').value | json}}
+   </td>
+
+</table>
